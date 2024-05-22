@@ -15,14 +15,16 @@ public class Player_Controller : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    //fixed update calls once per frame.
+    private void FixedUpdate()
     {
         
     }
 
-    private void OnMove(InputAction input)
+    private void OnMove(InputValue value)
     {
-        
+        moveDirection = value.Get<Vector2>().normalized; //assigning moveDirection vector2 with value obtained from Input System.
+        Debug.Log("moveDirection is" + moveDirection);
+
     }
 }
