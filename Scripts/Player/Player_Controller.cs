@@ -20,13 +20,15 @@ public class Player_Controller : MonoBehaviour
     private void FixedUpdate()
     {
         //player movement
+        Vector2 movement = moveDirection * moveSpeed * Time.fixedDeltaTime; //creating instance variable to store vector2 movement.
+        _rb.position += movement; // adding the movement variable to the rigidbody2d position co ordinates
 
     }
 
     private void OnMove(InputValue value)
     {
         moveDirection = value.Get<Vector2>().normalized; //assigning moveDirection vector2 with value obtained from Input System.
-        Debug.Log("moveDirection is" + moveDirection);
+        Debug.Log("moveDirection is" + moveDirection); // sending debug of movedirection x and y values
 
     }
 }
