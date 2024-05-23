@@ -12,6 +12,18 @@ public class Player_Controller : MonoBehaviour
     public bool playerCanMove; // bool variable which will be used later on to control whether the player is allowed to move or not
     //could move this bool into its own script which keeps track of player variables needed to be altered by many different scripts
 
+    // creating vector2 array to store values of 8 directions
+    private readonly Vector2[] directions = {
+        new Vector2(1, 0).normalized, // Right
+        new Vector2(1, 1).normalized, // Up-Right
+        new Vector2(0, 1).normalized, // Up
+        new Vector2(-1, 1).normalized, // Up-Left
+        new Vector2(-1, 0).normalized, // Left
+        new Vector2(-1, -1).normalized, // Down-Left
+        new Vector2(0, -1).normalized, // Down
+        new Vector2(1, -1).normalized // Down-Right
+    };
+
     // Start is called before the first frame update
     void Start()
     {
