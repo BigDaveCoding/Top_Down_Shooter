@@ -14,6 +14,7 @@ public class Player_Controller : MonoBehaviour
 
     // creating vector2 array to store values of 8 directions
     private readonly Vector2[] directions = {
+        new Vector2(0, 0).normalized, // Idle
         new Vector2(1, 0).normalized, // Right
         new Vector2(1, 1).normalized, // Up-Right
         new Vector2(0, 1).normalized, // Up
@@ -41,13 +42,33 @@ public class Player_Controller : MonoBehaviour
             _rb.position += movement; // adding the movement variable to the rigidbody2d position co ordinates
         }
         
-
     }
 
     private void OnMove(InputValue value)
     {
+        
         moveDirection = value.Get<Vector2>().normalized; //assigning moveDirection vector2 with value obtained from Input System.
+        moveDirection = QuantizeDirection(moveDirection);
         Debug.Log("moveDirection is" + moveDirection); // sending debug of movedirection x and y values
 
     }
+
+    private Vector2 QuantizeDirection(Vector2 input)
+    {
+        float maxDot = -Mathf.Infinity;
+        Vector2 bestMatch = Vector2.zero;
+
+        foreach (var direction in directions)
+        {
+            float dot = Vector2.Dot(input, direction);
+            if (dot > maxDot)
+            {
+                maxDot = dot;
+                bestMatch = direction;
+            }
+        }
+
+        return bestMatch;
+    }
 }
+
