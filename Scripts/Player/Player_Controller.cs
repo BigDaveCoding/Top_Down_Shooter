@@ -15,6 +15,10 @@ public class Player_Controller : MonoBehaviour
     public float bulletSpeed; //float to control speed of the bullet
     public bool playerShooting; //bool to tell whther the player is shooting or not. assigned when input of OnShoot method is not vector2(0, 0)
 
+
+    public float timeBetweenShots;
+    [SerializeField] private float lastShotTime;
+
     public bool playerCanMove; // bool variable which will be used later on to control whether the player is allowed to move or not
     //could move this bool into its own script which keeps track of player variables needed to be altered by many different scripts
 
@@ -41,6 +45,7 @@ public class Player_Controller : MonoBehaviour
     //fixed update calls once per frame.
     private void FixedUpdate()
     {
+        
         if (playerCanMove)
         {
             //player movement
@@ -48,10 +53,16 @@ public class Player_Controller : MonoBehaviour
             _rb.position += movement; // adding the movement variable to the rigidbody2d position co ordinates
         }
 
-        if (playerShooting)
+        lastShotTime = Time.time;
+        float timeSinceShot = Time.time - lastShotTime;
+        if(timeSinceShot >= timeBetweenShots && playerShooting)
         {
             FireBullet();
         }
+        //if (playerShooting)
+        //{
+        //    FireBullet();
+        //}
         
     }
 
