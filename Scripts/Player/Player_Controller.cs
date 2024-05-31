@@ -53,17 +53,18 @@ public class Player_Controller : MonoBehaviour
             _rb.position += movement; // adding the movement variable to the rigidbody2d position co ordinates
         }
 
-        lastShotTime = Time.time;
+        
         float timeSinceShot = Time.time - lastShotTime;
+
         if(timeSinceShot >= timeBetweenShots && playerShooting)
         {
             FireBullet();
+            lastShotTime = Time.time;
+            
         }
-        //if (playerShooting)
-        //{
-        //    FireBullet();
-        //}
-        
+
+        Debug.Log("last shot time is: " + lastShotTime);
+        Debug.Log("time since shot is: " + timeSinceShot);
     }
 
     private void OnMove(InputValue value)
