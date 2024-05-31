@@ -6,13 +6,13 @@ using UnityEngine.InputSystem; // needed for the input system asset in unity
 public class Player_Controller : MonoBehaviour
 {
     public float moveSpeed = 1f; // move speed which can be assigned in the unity inspector.
-    [SerializeField] private Vector2 moveDirection; // private variable to assign vector2 in OnMove function
+    [SerializeField] private Vector2 moveDirection; // private variable to assign vector2 in OnMove method
     [SerializeField] private Rigidbody2D _rb; // private rigidbody which will be assigned in start
 
     public bool playerCanMove; // bool variable which will be used later on to control whether the player is allowed to move or not
     //could move this bool into its own script which keeps track of player variables needed to be altered by many different scripts
 
-    // creating vector2 array to store values of 8 directions
+    // creating vector2 array to store values of 8 directions and Idle (not moving)
     private readonly Vector2[] directions = {
         new Vector2(0, 0).normalized, // Idle
         new Vector2(1, 0).normalized, // Right
@@ -48,20 +48,22 @@ public class Player_Controller : MonoBehaviour
     {
         
         moveDirection = value.Get<Vector2>().normalized; //assigning moveDirection vector2 with value obtained from Input System.
-        moveDirection = QuantizeDirection(moveDirection);
+        moveDirection = QuantizeDirection(moveDirection); // Put movedirection through Quantize function to return best matched direction in direction array.
         Debug.Log("moveDirection is" + moveDirection); // sending debug of movedirection x and y values
 
     }
 
+    // method to take input and find the closest direction
     private Vector2 QuantizeDirection(Vector2 input)
     {
-        float maxDot = -Mathf.Infinity;
-        Vector2 bestMatch = Vector2.zero;
+        float maxDot = -Mathf.Infinity; // initialize at very small value. will e used to find highest dot product found
+        Vector2 bestMatch = Vector2.zero; // initialize bestmatch to 0, 0. Idle.
 
         foreach (var direction in directions)
         {
-            float dot = Vector2.Dot(input, direction);
-            if (dot > maxDot)
+            float dot = Vector2.Dot(input, direction); // takes input and measures it against each direction in directions.
+
+            if (dot > maxDot) // If the current dot product is greater than maxDot, it means the current direction is closer to the input direction than any previously checked direction.
             {
                 maxDot = dot;
                 bestMatch = direction;
