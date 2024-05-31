@@ -89,7 +89,15 @@ public class Player_Controller : MonoBehaviour
 
     private void FireBullet()
     {
-        return;
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        // Creating a gameobject when the firebullet method runs.
+        // Assigning the position to the player transform and rotation to player rotation
+
+        Rigidbody2D bulletRB = bullet.GetComponent<Rigidbody2D>();
+        // Getting the rigidbody attached to the bullet prefab in order to control the velocity
+
+        bulletRB.velocity = bulletSpeed * transform.up;
+        // Assiging velocity of bullet by using bulletspeed float and up position of the player.
     }
 
     // method to take input and find the closest direction
