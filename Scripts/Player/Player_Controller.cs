@@ -47,6 +47,11 @@ public class Player_Controller : MonoBehaviour
             Vector2 movement = moveDirection * moveSpeed * Time.fixedDeltaTime; //creating instance variable to store vector2 movement.
             _rb.position += movement; // adding the movement variable to the rigidbody2d position co ordinates
         }
+
+        if (playerShooting)
+        {
+            FireBullet();
+        }
         
     }
 
@@ -70,11 +75,21 @@ public class Player_Controller : MonoBehaviour
             playerShooting = false;
             Debug.Log("player is not shooting");
         }
+        else
+        {
+            playerShooting = true;
+            Debug.Log("player is shooting");
+        }
 
-        Debug.Log("Shoot direction is " + shootDirection);
+        //Debug.Log("Shoot direction is " + shootDirection);
 
 
         //What to do if shoot direction is 0, 0 vector2?
+    }
+
+    private void FireBullet()
+    {
+        return;
     }
 
     // method to take input and find the closest direction
