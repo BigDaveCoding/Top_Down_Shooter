@@ -10,6 +10,11 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb; // private rigidbody which will be assigned in start
     [SerializeField] private Vector2 shootDirection; // private variable to assign shooting direction
 
+    
+    public GameObject bulletPrefab; // creating gameobject to store bulet prefab to spawn bullet from onshoot method
+    public float bulletSpeed; //float to control speed of the bullet
+    public bool playerShooting; //bool to tell whther the player is shooting or not. assigned when input of OnShoot method is not vector2(0, 0)
+
     public bool playerCanMove; // bool variable which will be used later on to control whether the player is allowed to move or not
     //could move this bool into its own script which keeps track of player variables needed to be altered by many different scripts
 
@@ -59,6 +64,13 @@ public class Player_Controller : MonoBehaviour
     {
         shootDirection = value.Get<Vector2>().normalized; //assigning direction of input (controller right stick) to shootDirection Vector2
         shootDirection = QuantizeDirection(shootDirection); // Quantizing shoot direction to one of the 8 directions.
+
+        if(shootDirection == Vector2.zero)
+        {
+            playerShooting = false;
+            Debug.Log("player is not shooting");
+        }
+
         Debug.Log("Shoot direction is " + shootDirection);
 
 
