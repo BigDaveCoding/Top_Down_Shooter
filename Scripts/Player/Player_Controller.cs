@@ -8,6 +8,7 @@ public class Player_Controller : MonoBehaviour
     public float moveSpeed = 1f; // move speed which can be assigned in the unity inspector.
     [SerializeField] private Vector2 moveDirection; // private variable to assign vector2 in OnMove method
     [SerializeField] private Rigidbody2D _rb; // private rigidbody which will be assigned in start
+    [SerializeField] private Vector2 shootDirection; // private variable to assign shooting direction
 
     public bool playerCanMove; // bool variable which will be used later on to control whether the player is allowed to move or not
     //could move this bool into its own script which keeps track of player variables needed to be altered by many different scripts
@@ -49,8 +50,19 @@ public class Player_Controller : MonoBehaviour
         
         moveDirection = value.Get<Vector2>().normalized; //assigning moveDirection vector2 with value obtained from Input System.
         moveDirection = QuantizeDirection(moveDirection); // Put movedirection through Quantize function to return best matched direction in direction array.
-        Debug.Log("moveDirection is" + moveDirection); // sending debug of movedirection x and y values
+        //Debug.Log("moveDirection is" + moveDirection);
+        // sending debug of movedirection x and y values
 
+    }
+
+    private void OnShoot(InputValue value)
+    {
+        shootDirection = value.Get<Vector2>().normalized; //assigning direction of input (controller right stick) to shootDirection Vector2
+        shootDirection = QuantizeDirection(shootDirection); // Quantizing shoot direction to one of the 8 directions.
+        Debug.Log("Shoot direction is " + shootDirection);
+
+
+        //What to do if shoot direction is 0, 0 vector2?
     }
 
     // method to take input and find the closest direction
