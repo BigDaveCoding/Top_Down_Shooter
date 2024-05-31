@@ -89,6 +89,10 @@ public class Player_Controller : MonoBehaviour
 
     private void FireBullet()
     {
+
+        //Bullet spawns but is constantly in an upright position.
+        //How do I spawn the prefab so the top of the bullet is facing the shootDirection
+
         GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
         // Creating a gameobject when the firebullet method runs.
         // Assigning the position to the player transform and rotation to player rotation
