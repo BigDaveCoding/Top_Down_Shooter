@@ -96,8 +96,8 @@ public class Player_Controller : MonoBehaviour
         Rigidbody2D bulletRB = bullet.GetComponent<Rigidbody2D>();
         // Getting the rigidbody attached to the bullet prefab in order to control the velocity
 
-        bulletRB.velocity = bulletSpeed * transform.up;
-        // Assiging velocity of bullet by using bulletspeed float and up position of the player.
+        bulletRB.velocity = bulletSpeed * shootDirection;
+        // Assiging velocity of bullet by using bulletspeed float and the direction assigned in the shotDirection Variable
     }
 
     // method to take input and find the closest direction
